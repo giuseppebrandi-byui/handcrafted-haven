@@ -21,7 +21,7 @@ import { formatCurrency } from "@/lib/utils";
 import PlaceOrderForm from "./place-order-form";
 
 
-export const metada: Metadata = {
+export const metadata: Metadata = {
     title: 'Place Order'
 };
 
@@ -43,7 +43,7 @@ const PlaceOrderPage = async () => {
 
     return ( <> <CheckoutSteps current={3} /> 
     <h1 className="py-4 text-2xl"> Place Order</h1>
-    <div className='grid md:grid-cols-3 md:gap'> 
+    <div className='grid md:grid-cols-3 md:gap-5'> 
         <div className="md:col-span-2 overflow-x-auto space-y-4">
             <Card>
                 <CardContent className="p-4 gap-4">
