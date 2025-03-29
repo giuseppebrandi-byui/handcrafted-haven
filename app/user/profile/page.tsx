@@ -3,7 +3,7 @@ import {auth} from "@/auth";
 import {SessionProvider} from 'next-auth/react';
 import ProfileForm from './profile-form'
 
-export const meatdata: Metadata = {
+export const metadata: Metadata = {
     title: 'Customer Profile',
 }
 

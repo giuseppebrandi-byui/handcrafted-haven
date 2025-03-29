@@ -1,6 +1,6 @@
 'use client'
 
-import {useToast} from '@/hooks/use-toast';
+import { toast } from "sonner";
 import {updateProfileSchema} from '@/lib/validators';
 import {useSession} from "next-auth/react";
 import {useForm} from 'react-hook-form';
@@ -20,15 +20,14 @@ const ProfileForm = () => {
             email: session?.user?.email ?? '',
         }
     })
-    const {toast} = useToast;
+    // const {toast} = useToast;
     const onSubmit = async (values: z.infer<typeof updateProfileSchema>) => {
         const res = await updateProfile(values);
         if (!res.success) {
-            return toast({
-                variant: 'destructive',
-                description: res.message
-            })
+            toast(res.message);
+            return;
         }
+
         const newSession = {
             ...session,
             user: {
@@ -38,9 +37,7 @@ const ProfileForm = () => {
         };
         await update(newSession);
 
-        toast({
-            description: res.message,
-        })
+        toast(res.message);
     }
 
     return <Form {...form}>

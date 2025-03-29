@@ -12,14 +12,14 @@ export default function UserLayout({
   return (
     <>
       <div className="flex flex-col">
-        <div className="border- container mx-auto">
+        <div className="border-b container mx-auto">
             <div className="flex items-center h-16 px-4">
                 <Link href="/" className="w-22">
-                <Image src="/images/logo.svg" height={48} width={48} alt={APP_NAME}/>
+                <Image src="/images/logo.png" height={48} width={48} alt={APP_NAME}/>
                 </Link>
                 <MainNav className="mx-6"/>
                 <div className="ml-auto items-center flex space-x-4">
-                    <Menu/>
+                    <Menu />
 
                 </div>
             </div>
