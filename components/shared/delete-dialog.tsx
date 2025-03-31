@@ -1,7 +1,7 @@
 'use client'
 import {useState} from "react"
 import { useTransition } from "react";
-import { useToast } from '@/hooks/use-toast'
+import { toast } from "sonner";
 import {Button} from "../ui/button"
 import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { AlertDialogFooter, AlertDialogHeader } from "../ui/alert-dialog";
@@ -15,22 +15,15 @@ const DeleteDialog = ({
 }) => {
     const [open, setOpen] = useState(false);
     const [isPending, startTransition] = useTransition();
-    const {toast} = useToast();
+    
 
     const handleDeleteClick = () => {
         startTransition( async() => {
             const res = await action(id);
 
-            if (!res.success){
-                toast({
-                    variant: 'destructive',
-                    description: res.message
-                })
-            } else {
-                setOpen(false);
-                toast({
-                    description: res.message
-                })
+            if (!res.success) {
+                toast(res.message);
+                return;
             }
         })
     }
@@ -48,7 +41,7 @@ const DeleteDialog = ({
                         Are you absolutely sure you want to delete it?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                        This action can't  be undone
+                        This action can &apos; t  be undone
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

@@ -1,4 +1,4 @@
-// import {auth} from '@/auth'
+import {auth} from '@/auth'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getOrderSummary } from '@/lib/actions/order.actions';
@@ -10,7 +10,7 @@ import Charts  from "./charts"
 import {requireAdmin } from '@/lib/auth-guard';
 
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
     title: 'Admin Dashboard',
 
 }
@@ -19,11 +19,11 @@ const AdminOverviewPage = async() => {
     await requireAdmin();
 
 
-    // const session = await auth();
+    const session = await auth();
     
-    // if (session?.user?.role !== 'admin'){
-    //     throw new Error('User is not Authorized');
-    // }
+    if (session?.user?.role !== 'admin'){
+        throw new Error('User is not Authorized');
+    }
 
     const summary = await getOrderSummary();
 

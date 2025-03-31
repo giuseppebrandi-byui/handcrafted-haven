@@ -9,6 +9,7 @@ import Image from "next/image";
 import { updateOrdertoPaidCOD, deliverOrder } from "@/lib/actions/order.actions";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const OrderDetailsTable = ({ order, isAdmin}: { order: Order; isAdmin:boolean; }) => {
   const {
@@ -27,7 +28,48 @@ const OrderDetailsTable = ({ order, isAdmin}: { order: Order; isAdmin:boolean; }
   } = order;
   
 
-  const 
+  const MarkAsPaidButton = () =>{
+    const [isPending, startTransition] = useTransition();
+
+    return(
+      <Button
+      type="button"
+      disabled={isPending}
+      onClick={() => startTransition(async () => {
+        const res = await updateOrdertoPaidCOD(order.id);
+        toast({
+          variant: res.success ? 'default' : 'destructive',
+          description: res.message
+        })
+      })}
+      >
+        {isPending ? 'proccessing..' : 'Mark As Paid'}
+      </Button>
+    );
+
+  }
+
+  const MarkAsDeliveredButton = () =>{
+    const [isPending, startTransition] = useTransition();
+    const {toast} = useToast();
+
+    return(
+      <Button
+      type="button"
+      disabled={isPending}
+      onClick={() => startTransition(async () => {
+        const res = await deliverOrder(order.id);
+        toast({
+          variant: res.success ? 'default' : 'Mark as Delivered',
+          description: res.message
+        })
+      })}
+      >
+        {isPending ? 'proccessing..' : 'Mark As Paid'}
+      </Button>
+    );
+
+  }
 
   return <>
     <h1 className="py-4 text-2xl">Order {formatId(id)}</h1>
@@ -57,7 +99,7 @@ const OrderDetailsTable = ({ order, isAdmin}: { order: Order; isAdmin:boolean; }
             <p>{shippingAddress.postalCode}, {shippingAddress.country}</p>
             {isDelivered ? (
               <Badge variant="secondary">
-                Paid at { formatDateTime(deliveredAt!).dateTime}
+                Delivered at { formatDateTime(deliveredAt!).dateTime}
               </Badge>
             ) : (
                 <Badge variant="destructive">
