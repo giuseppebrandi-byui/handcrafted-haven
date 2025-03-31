@@ -20,7 +20,6 @@ const ProfileForm = () => {
             email: session?.user?.email ?? '',
         }
     })
-    // const {toast} = useToast;
     const onSubmit = async (values: z.infer<typeof updateProfileSchema>) => {
         const res = await updateProfile(values);
         if (!res.success) {
