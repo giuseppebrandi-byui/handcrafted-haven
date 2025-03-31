@@ -6,8 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableRow, TableHead, TableHeader, TableCell } from "@/components/ui/table";
 import Link from "next/link";
 import Image from "next/image";
+import { updateOrdertoPaidCOD, deliverOrder } from "@/lib/actions/order.actions";
+import { useTransition } from "react";
+import { Button } from "@/components/ui/button";
 
-const OrderDetailsTable = ({ order }: { order: Order }) => {
+const OrderDetailsTable = ({ order, isAdmin}: { order: Order; isAdmin:boolean; }) => {
   const {
     id,
     shippingAddress,
@@ -23,6 +26,9 @@ const OrderDetailsTable = ({ order }: { order: Order }) => {
     deliveredAt
   } = order;
   
+
+  const 
+
   return <>
     <h1 className="py-4 text-2xl">Order {formatId(id)}</h1>
     <div className="grid md:grid-cols-3 md:gap-5">
@@ -113,7 +119,17 @@ const OrderDetailsTable = ({ order }: { order: Order }) => {
             <div className="flex justify-between">
               <div>Total</div>
               <div>{formatCurrency(totalPrice)}</div>
-            </div>                                
+            </div>          
+              {
+              isAdmin && !isPaid && paymentMethod === 'CashOnDelivery' && (
+                <MarkAsPaidButton />
+              )
+              }
+              {
+                isAdmin && !isPaid && !isDelivered && (
+                  <MarkAsDeliveredButton />
+                )
+              }      
           </CardContent>
         </Card>
         </div>
