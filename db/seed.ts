@@ -9,8 +9,9 @@ async function main() {
   await prisma.verificationToken.deleteMany();
   await prisma.user.deleteMany();
 
-  await prisma.product.createMany({ data: sampleData.products });
   await prisma.user.createMany({ data: sampleData.users });
+  await prisma.product.createMany({ data: sampleData.products });
+  await prisma.story.createMany({ data: sampleData.stories });
 
   console.log("Database seeded successfully");
 }

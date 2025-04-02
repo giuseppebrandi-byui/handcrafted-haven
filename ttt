@@ -1,0 +1,40 @@
+Message: Error in Prisma Client request:
+
+
+Invalid `STUDIO_EMBED_BUILD<"u"&&STUDIO_EMBED_BUILD?WWe():require(`${ l.prismaClient } /runtime/${ c } `),k=e,L=(0,hX.createHash)("sha256").update()` invocation in
+  C: \Users\Giuseppe\BYU\WDD 430\handcrafted - haven\node_modules\prisma\build\index.js: 2128: 10524
+
+2125
+2126 Set up a new Prisma project with an example model
+2127   ${ me("$") } prisma init--with-model
+→ 2128 `));var P3=Ab;S3();$t();var iHe=require("@prisma/engines");je();var LBe=require("buffer");function MBe(e,r,n,i){Object.defineProperty(e,r,{get:n,set:i,enumerable:!0,configurable:!0})}var BBe={};MBe(BBe,"serializeRPCMessage",()=>dY);MBe(BBe,"deserializeRPCMessage",()=>hY);var fY="PrismaBigInt::",pY="PrismaBytes::";function dY(e){return JSON.stringify(e,(r,n)=>typeof n=="bigint"?fY+n:n?.type==="Buffer"&&Array.isArray(n?.data)?pY+LBe.Buffer.from(n.data).toString("base64"):n)}function hY(e){return JSON.parse(e,(r,n)=>typeof n=="string"&&n.startsWith(fY)?BigInt(n.substr(fY.length)):typeof n=="string"&&n.startsWith(pY)?n.substr(pY.length):n)}var QWe=Y(VBe()),Fk=Y(Jje()),XWe=Y(require("http")),JWe=Y(tUe()),ZWe=require("zlib");var Bl=require("path");je();var hX=require("crypto"),VWe=Y(gQ());function pX(e,r,n,i){Object.defineProperty(e,r,{get:n,set:i,enumerable:!0,configurable:!0})}var zWe=globalThis,lX={},Pk={},hg=zWe.parcelRequire94c2;hg==null&&(hg=function(e){if(e in lX)return lX[e].exports;if(e in Pk){var r=Pk[e];delete Pk[e];var n={id:e,exports:{}};return lX[e]=n,r.call(n.exports,n,n.exports),n.exports}var i=new Error("Cannot find module '"+e+"'");throw i.code="MODULE_NOT_FOUND",i},hg.register=function(r,n){Pk[r]=n},zWe.parcelRequire94c2=hg);var KWe=hg.register;KWe("9lTzd",function(module,exports){pX(module.exports,"guessEnginePaths",()=>guessEnginePaths),pX(module.exports,"guessPrismaClientPath",()=>guessPrismaClientPath);var $5COlq=hg("5COlq");async function guessEnginePaths({forceBinary,forceLibrary,resolveOverrides}){let queryEngineName,queryEngineType;if(forceLibrary?(queryEngineName=await(0,$5COlq.prismaEngineName)("query-engine","library"),queryEngineType="library"):forceBinary?(queryEngineName=await(0,$5COlq.prismaEngineName)("query-engine","binary"),queryEngineType="binary"):(queryEngineName=void 0,queryEngineType=void 0),!queryEngineName||!queryEngineType)return{queryEngine:void 0};let queryEnginePath;if(resolveOverrides[".prisma/client"])queryEnginePath=(0,Bl.resolve)(resolveOverrides[".prisma/client"],`../ ${ queryEngineName } `);else if(resolveOverrides["@prisma/engines"])queryEnginePath=(0,Bl.resolve)(resolveOverrides["@prisma/engines"],`../../ ${ queryEngineName } `);else{let atPrismaEnginesPath;try{atPrismaEnginesPath=eval("require.resolve('@prisma/engines')")}catch(e){throw new Error("Unable to resolve Prisma engine paths. This is a bug.")}queryEnginePath=(0,Bl.resolve)(atPrismaEnginesPath`../../ ${ queryEngineName } `)}return{queryEngine:{type:queryEngineType,path:queryEnginePath}}}function guessPrismaClientPath({resolveOverrides}){let prismaClientPath=resolveOverrides["@prisma/client"]||eval("require.resolve('@prisma/client')");return(0,Bl.resolve)(prismaClientPath,"../")}});KWe("5COlq",function(e,r){pX(e.exports,"prismaEngineName",()=>n);async function n(i,a){let o=await ei(),u=o==="windows"?".exe":"";if(a==="library")return Tc(o,"fs");if(a==="binary")return`${ i } -${ o }${ u } `;throw new Error(`Unknown engine type: ${ a } `)}});function Jer(e){return{models:fX(e.models),enums:fX(e.enums),types:fX(e.types)}}function fX(e){let r={};for(let{name:n,...i}of e)r[n]=i;return r}var PS=(0,VWe.debug)("prisma:studio-pcw"),Zer=/^\s*datasource\s+([^\s]+)\s*{/m,etr=/url *= *env\("(.*)"\)/,ttr=/url *= *"(.*)"/;async function rtr({schema:e,schemaPath:r,dmmf:n,adapter:i,datasourceProvider:a,previewFeatures:o,datasources:u,engineType:c,paths:l,directUrl:f,versions:p}){let g=e.match(Zer)?.[1]??"",v=e.match(etr)?.[1]??null,x=e.match(ttr)?.[1]??null,{getPrismaClient:b,PrismaClientKnownRequestError:D,PrismaClientRustPanicError:F,PrismaClientInitializationError:A,PrismaClientValidationError:O}=typeof STUDIO_EMBED_BUILD<"u"&&STUDIO_EMBED_BUILD?WWe():require(`${ l.prismaClient } /runtime/${ c } `),k=e,L=(0,hX.createHash)("sha256").update(
+The column `User.username` does not exist in the current database.
+  
+Query:
+{
+  "modelName": "Order",
+  "operation": "findMany",
+  "args": {
+    "take": 100,
+    "skip": 0,
+    "select": {
+      "id": true,
+      "userId": true,
+      "shippingAddress": true,
+      "paymentMethod": true,
+      "paymentResult": true,
+      "itemsPrice": true,
+      "shippingPrice": true,
+      "taxPrice": true,
+      "totalPrice": true,
+      "isPaid": true,
+      "paidAt": true,
+      "isDelivered": true,
+      "deliveredAt": true,
+      "createdAt": true,
+      "user": true,
+      "orderitems": true
+    }
+  }
+}
+  
