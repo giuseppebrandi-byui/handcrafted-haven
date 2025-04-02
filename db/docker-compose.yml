@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: ${COMPOSE_PROJECT_NAME:-LOCAL}_SJL_DB
+    working_dir: /home/node/app/
+    volumes:
+      - 'handcrafter-haven:/var/lib/postgresql/data'
+    restart: always
+    ports:
+      - '5432:5432'
+    #    command: ['postgres', '-c', 'log_statement=all']
+    command: ['postgres', '-c', 'log_statement=ddl']
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=neondb
+      - HOST_IP=127.0.0.1
+
+  adminer:
+    container_name: ${COMPOSE_PROJECT_NAME:-LOCAL}_adminer
+    image: adminer
+    restart: always
+    ports:
+      - '${ADMINER_PORT:-8080}:8080'
+    hostname: adminer.local
+
+volumes:
+  handcrafter-haven:
