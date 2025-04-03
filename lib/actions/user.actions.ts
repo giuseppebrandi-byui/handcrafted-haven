@@ -39,8 +39,10 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
     const user = signUpFormSchema.parse({
       name: formData.get("name"),
       email: formData.get("email"),
+      username: formData.get("username"),
       password: formData.get("password"),
       confirmPassword: formData.get("confirmPassword"),
+      role: formData.get("role"),
     });
 
     const plainPassword = user.password;
@@ -50,7 +52,9 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       data: {
         name: user.name,
         email: user.email,
-        password: user.password
+        password: user.password,
+        role: user.role,
+        username: user.username,
       }
     });
 

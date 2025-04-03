@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { getProductBySlug } from "@/lib/actions/product.actions";
+import { getProductBySlug,getProductsByUsername } from "@/lib/actions/product.actions";
+import ProductList from "@/components/shared/product/product-list";
 import { notFound } from "next/navigation";
 import ProductPrice from "@/components/shared/product/product-price";
 import ProductImages from "@/components/shared/product/product-images";
@@ -11,10 +12,10 @@ const ProductDetailsPage = async (props: {
   params: Promise<{ slug: string }>
 }) => {
   const { slug } = await props.params;
-
   const product = await getProductBySlug(slug);
   if (!product) notFound();
-
+  
+  const productsByArtisan = await getProductsByUsername(product.username);
   const cart = await getMyCart();
 
   return <>
@@ -84,6 +85,9 @@ const ProductDetailsPage = async (props: {
           </Card>
         </div>
       </div>
+
+      <ProductList data={productsByArtisan} title={product.username + "'s products"} limit={4} />
+      
     </section>
   </>;
 };
