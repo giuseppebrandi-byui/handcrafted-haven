@@ -74,7 +74,38 @@ const SignUpForm = () => {
           autoComplete="confirmPassword"
           defaultValue={signUpDefaultValues.confirmPassword}
         />
-      </div>
+        </div>
+        
+        <div>
+          <Label>Role</Label>
+          <div className="flex space-x-4">
+            <label className="flex items-center space-x-2">
+              <input type="radio" name="role" value="admin" required disabled />
+              <span>Admin</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input type="radio" name="role" value="user" required />
+              <span>User</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input type="radio" name="role" value="artisan" required />
+              <span>Artisan</span>
+            </label>
+          </div>
+          
+          <div>
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              name="username"
+              type="text"
+              required
+              autoComplete="username"
+              defaultValue={signUpDefaultValues.username}
+            />
+          </div>
+        </div>
+
         <SignUpButton />
       </div>
 

@@ -43,7 +43,8 @@ export const config = {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: user.role
+              role: user.role,
+              username: user.username
             }
           }
         }
@@ -59,6 +60,7 @@ export const config = {
       session.user.id = token.sub;
       session.user.role = token.role;
       session.user.name = token.name;
+      session.user.username = token.username;
 
       // If there is an update, set the user name
       if (trigger === "update") { 
@@ -72,6 +74,7 @@ export const config = {
       if (user) { 
         token.id = user.id;
         token.role = user.role;
+        token.username = user.username
 
         // If user has no name then use email
         if (user.name === "NO_NAME") {
