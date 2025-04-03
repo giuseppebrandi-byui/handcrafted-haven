@@ -12,6 +12,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from '..
 import slugify from 'slugify';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { useSession } from 'next-auth/react';
 // import { Textarea } from '../ui/textarea';
 // import { createProduct, updateProduct } from '@/lib/actions/product.actions';
 // import { UploadButton } from '@/lib/uploadthing';
@@ -39,6 +40,8 @@ const ProductForm = ({
     defaultValues:
       product && type === 'Update' ? product : productDefaultValues,
   });
+
+  const { data: session} = useSession(); // Fetch session data using useSession
 
   return <Form {...form}>
     <form className="space-y-8">
@@ -120,6 +123,29 @@ const ProductForm = ({
       </div>
       <div>
         { /*Description*/ }
+      </div>
+      <div>
+        { /*Username*/}
+        <FormField
+            control={form.control}
+            name='username'
+            render={({
+              // field,
+            }: {
+              field: ControllerRenderProps<
+                z.infer<typeof insertProductSchema>,
+                'username'
+              >;
+            }) => (
+              <FormItem className='w-full'>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input defaultValue={session!.user.username} disabled= {session!.user?.role !== "admin"} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
       </div>
       <div>
         { /*Submit*/ }
