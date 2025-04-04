@@ -16,7 +16,7 @@ const Menu = () => {
             <ShoppingCart /> Cart
           </Link>
         </Button>
-        <SearchBox />
+        {/* <SearchBox /> */}
         <UserButton />
       </nav>
       <nav className="md:hidden">
