@@ -9,7 +9,7 @@ const currency = z
 
 // Schema for inserting products
 export const insertProductSchema = z.object({
-  id: z.string(),
+  // id: z.string(),
   username: z.string().min(3, 'Name must be at least 3 characters'),
   name: z.string().min(3, 'Name must be at least 3 characters'),
   slug: z.string().min(3, 'Slug must be at least 3 characters'),
