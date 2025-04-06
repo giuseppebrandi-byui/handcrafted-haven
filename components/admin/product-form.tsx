@@ -18,7 +18,8 @@ import { createProduct, updateProduct } from '@/lib/actions/product.actions';
 import { UploadButton } from '@/lib/uploadthing';
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
-// import { Checkbox } from '../ui/checkbox';
+import { Checkbox } from '../ui/checkbox';
+// import { SessionProvider } from "next-auth/react";
 
 
 const ProductForm = ({
@@ -41,7 +42,7 @@ const ProductForm = ({
       product && type === 'Update' ? product : productDefaultValues,
   });
 
-  const { data: session} = useSession(); // Fetch session data using useSession
+  const { data: session} = useSession(); 
   const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (values) => { 
     // On Create
     if (type === "Create") { 
@@ -49,7 +50,8 @@ const ProductForm = ({
 
       if (!res.success) {
         toast(res.message);
-        return;
+      } else { 
+        toast(res.message);
       }
       router.push("/admin/products")
     }
@@ -65,12 +67,16 @@ const ProductForm = ({
 
       if (!res.success) {
         toast(res.message);
+      } else { 
+        toast(res.message)
       }
       router.push("/admin/products")
     }
   }
 
   const images = form.watch("images");
+  const isFeatured = form.watch("isFeatured");
+  const banner = form.watch("banner");
 
   return <Form {...form}>
     <form method="POST" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -200,10 +206,6 @@ const ProductForm = ({
                           }}
                           onUploadError={(error: Error) => {
                             toast(error.message);
-                            // toast({
-                            //   variant: 'destructive',
-                            //   description: `ERROR! ${error.message}`,
-                            // });
                           }}
                         />
                       </FormControl>
@@ -216,7 +218,42 @@ const ProductForm = ({
           />
       </div>
       <div className="upload-field">
-        { /*isFeatured*/ }
+        { /*isFeatured*/}
+        Featured Product
+        <Card>
+          <CardContent className="space-y-2 mt-2">
+            <FormField
+              control={form.control}
+              name="isFeatured"
+              render={({ field }) => (
+                <FormItem className="space-x-2 items-center">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormLabel>Is Featured?</FormLabel>
+                </FormItem>
+              )}
+            />
+            {isFeatured && banner && (
+              <Image src={banner} alt="banner image" className="w-full object-cover object-center rounded-sm"
+                width={1920}
+                height={680}
+              />
+            )}
+
+            {isFeatured && !banner &&(
+              <UploadButton endpoint='imageUploader'
+                onClientUploadComplete={(res: { url: string }[]) => {
+                  form.setValue('banner', res[0].url);
+                }}
+                onUploadError={(error: Error) => {
+                  toast(error.message);
+                }}
+              />
+            )}
+
+          </CardContent>
+        </Card>
       </div>
       <div>
         { /*Description*/}
@@ -244,7 +281,6 @@ const ProductForm = ({
                 <FormLabel>Username</FormLabel>
                 <FormControl>
                   <Input {...field} defaultValue={session!.user.username} disabled= {session!.user?.role !== "admin"} />
-                  {/* <Input placeholder='Enter product stock' {...field} /> */}
                 </FormControl>
                 <FormMessage />
               </FormItem>
