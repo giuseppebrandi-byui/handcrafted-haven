@@ -32,7 +32,7 @@ const AddProductPage = async (props: {
                 <ProfileForm/>
             </div>
 
-            {session!.user?.role === 'artisan' || session!.user?.role === 'admin' &&
+            {(session!.user?.role === 'artisan' || session!.user?.role === 'admin') &&
 
                 <div className="max-w-md mx-auto space-y-4">
                     <h2 className="h2-bold">Add New Product</h2>

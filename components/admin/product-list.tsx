@@ -71,9 +71,17 @@ const ProductList: React.FC<ProductListProps> = async ({ products, page }) => {
                 <TableCell>{product.stock}</TableCell>
                 <TableCell>{product.rating}</TableCell>
                 <TableCell className="flex gap-1">
+
+                  {session!.user.role === "admin" && 
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/admin/products/${product.id}`}>Edit</Link>
-                  </Button>
+                  </Button>}
+                  
+                  {session!.user.role === "artisan" && 
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/user/products/${product.id}`}>Edit</Link>
+                  </Button>}
+                  
                   <DeleteDialog id={product.id} action={deleteProduct} />
                 </TableCell>
               </TableRow>

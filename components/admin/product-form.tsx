@@ -19,7 +19,7 @@ import { UploadButton } from '@/lib/uploadthing';
 import { Card, CardContent } from '../ui/card';
 import Image from 'next/image';
 import { Checkbox } from '../ui/checkbox';
-// import { SessionProvider } from "next-auth/react";
+import { useEffect } from "react";
 
 
 const ProductForm = ({
@@ -33,16 +33,27 @@ const ProductForm = ({
 }) => {
   const router = useRouter();
 
+  const schema = type === 'Update' ? updateProductSchema : insertProductSchema
   const form = useForm<z.infer<typeof insertProductSchema>>({
     resolver:
-      type === 'Update'
-        ? zodResolver(updateProductSchema)
-        : zodResolver(insertProductSchema),
+      zodResolver(schema),
     defaultValues:
       product && type === 'Update' ? product : productDefaultValues,
   });
 
-  const { data: session} = useSession(); 
+  const { data: session } = useSession(); 
+  useEffect(
+    () => { 
+      if (session?.user?.username && session.user.role !== "user" && type === "Create") { 
+        form.setValue("username", session.user.username)
+      }
+    }, [
+      session,
+      form,
+      type
+    ]
+  );
+
   const onSubmit: SubmitHandler<z.infer<typeof insertProductSchema>> = async (values) => { 
     // On Create
     if (type === "Create") { 
@@ -53,13 +64,21 @@ const ProductForm = ({
       } else { 
         toast(res.message);
       }
-      router.push("/admin/products")
+      if (session?.user?.role === "admin") {
+        router.push("/admin/products");
+      } else {
+        router.push("/user/profile");
+      }
     }
 
     // On Update
     if (type === "Update") { 
-      if (!productId) { 
-        router.push("/admin/products");
+      if (!productId) {
+        if (session?.user?.role === "admin") {
+          router.push("/admin/products");
+        } else {
+          router.push("/user/profile");
+        }
         return;
       }
 
@@ -70,7 +89,12 @@ const ProductForm = ({
       } else { 
         toast(res.message)
       }
-      router.push("/admin/products")
+      
+      if (session?.user?.role === "admin") {
+          router.push("/admin/products");
+        } else {
+          router.push("/user/profile");
+        }
     }
   }
 
@@ -280,7 +304,7 @@ const ProductForm = ({
               <FormItem className='w-full'>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input {...field} defaultValue={session!.user.username} disabled= {session!.user?.role !== "admin"} />
+                  <Input {...field} disabled={session?.user?.role !== "admin"} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
