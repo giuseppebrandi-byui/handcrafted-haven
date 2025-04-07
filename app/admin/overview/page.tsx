@@ -13,11 +13,6 @@ export const metadata: Metadata = {
   title: "Admin Dashboard",
 }
 const AdminOverviewPage = async () => {
-  // const session = await auth();
-
-  // if (session?.user?.role !== "admin"){
-  //   throw new Error("User is not Authorized");
-  // }
 
   await requireAdmin();
 
