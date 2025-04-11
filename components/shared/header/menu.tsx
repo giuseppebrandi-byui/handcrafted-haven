@@ -1,10 +1,12 @@
-import { EllipsisVertical, ShoppingCart} from "lucide-react";
+
+import SearchBox from "./search-user";
+import { EllipsisVertical, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ModeToggle from "./mode-toggle";
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import UserButton from "./user-button";
-import SearchBox from "./search-user";
+
 
 const Menu = () => {
   return (
@@ -16,7 +18,7 @@ const Menu = () => {
             <ShoppingCart /> Cart
           </Link>
         </Button>
-        {/* <SearchBox /> */}
+        <SearchBox />
         <UserButton />
       </nav>
       <nav className="md:hidden">

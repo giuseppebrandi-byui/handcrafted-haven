@@ -28,7 +28,7 @@ const sampleData = {
   products: [
     {
       name: 'Wood Block Coffee Table',
-      username: "artisan",
+      username: "giuseppe",
       slug: 'wood-block-coffee-table',
       category: "Furniture",
       description: 'Handcrafted oak wood coffee table.',
@@ -64,7 +64,7 @@ const sampleData = {
     },
     {
       name: 'Wicker Rattan Side Table Furniture',
-            username: "artisan",
+      username: "artisan",
       slug: 'wicker-rattan-side-table-furniture',
       category: "Furniture",
       description: 'A perfect blend of sophistication and art.',
@@ -100,7 +100,7 @@ const sampleData = {
     },
     {
       name: 'Pinapple express vase',
-      username: "artisan",
+      username: "giuseppe",
       slug: 'pinapple-express-vase',
       category: "Accessories",
       description: 'A pinapple shaped vase ideal for your home kitchen table.',
