@@ -13,7 +13,7 @@ import { auth } from "@/auth";
 type Product = {
   id: string;
   name: string;
-  username: string;
+  // username: string;
   slug: string;
   category: string;
   brand: string;
@@ -37,11 +37,25 @@ type ProductListProps = {
 
 const ProductList: React.FC<ProductListProps> = async ({ products, page }) => {
   const session = await auth();
+  const searchParams = await props.searchParams;
+  const searchText = searchParams.query || "";
   return (
       <>
       <div className="space-y-2">
         <div className="flex-between">
-          <h1 className="h2-bold">Products</h1>
+          <div className="flex items-center gap-3">
+            <h1 className="h2-bold">Products</h1>
+            {searchText && (
+              <div>
+                Filtered by <i>&quot;{searchText}&quot;</i>{' '}
+                <Link href='/admin/products'>
+                  <Button variant='outline' size='sm'>
+                    Remove Filter
+                  </Button>
+                </Link>
+                </div>
+            )}
+            </div>
           {session!.user.role === "admin" &&  <Button asChild variant="default">
             <Link href="/admin/products/create">
             Create Product
@@ -79,22 +93,4 @@ const ProductList: React.FC<ProductListProps> = async ({ products, page }) => {
                   
                   {session!.user.role === "artisan" && 
                   <Button asChild variant="outline" size="sm">
-                    <Link href={`/user/products/${product.id}`}>Edit</Link>
-                  </Button>}
-                  
-                  <DeleteDialog id={product.id} action={deleteProduct} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        {/* {products?.totalPages && products.totalPages > 1 && ( */}
-        {products.totalPages > 1 && (
-          <Pagination page={page} totalPages={products.totalPages} />
-        )}
-      </div>
-    </>
-  )
-}
- 
-export default ProductList;
+                    <Link href={`/user/prod

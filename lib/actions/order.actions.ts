@@ -317,12 +317,25 @@ export async function getOrderSummary(){
 
 // Get all orders
 export async function getAllOrders({
-    limit = PAGE_SIZE, page,
+    limit = PAGE_SIZE, page, query,
 }:{
     limit?:number;
     page: number;
+    query: string;
 }) {
+    const queryFilter: Prisma.OrderWhereInput = query && query !== 'all' ? {
+        user: {
+           name: {
+            contains: query,
+            mode: 'insensitive'
+           } as Prisma.StringFilter
+        }
+    } : {};
+    
     const data = await prisma.order.findMany({
+        where: {
+            ...queryFilter,
+        },
         orderBy: {createdAt: 'desc'},
         take: limit,
         skip: (page - 1 ) * limit,
@@ -378,16 +391,4 @@ export async function deliverOrder(orderId: string){
         await prisma.order.update({
             where: { id: orderId},
             data: {
-                isDelivered: true,
-                deliveredAt: new Date(),
-            },
-        })
-        revalidatePath(`/order/${orderId}`)
-        return{
-            success: true,
-            message: 'Order marked as delivered',
-        }
-    } catch (error) {
-        return {success: false, messsage: formatError(error)}
-    }
-}
+                isDeli
