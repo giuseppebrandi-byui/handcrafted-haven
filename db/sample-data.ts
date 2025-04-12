@@ -42,7 +42,7 @@ const sampleData = {
       numReviews: 10,
       stock: 3,
       isFeatured: true,
-      banner: 'banner-1.jpg',
+      banner: '/images/banner-1.jpg',
     },
     {
       name: 'Chinese table and chairs set',
@@ -60,7 +60,7 @@ const sampleData = {
       numReviews: 8,
       stock: 8,
       isFeatured: true,
-      banner: 'banner-2.jpg',
+      banner: '/images/banner-2.jpg',
     },
     {
       name: 'Wicker Rattan Side Table Furniture',
