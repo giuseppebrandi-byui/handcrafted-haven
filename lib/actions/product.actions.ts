@@ -140,3 +140,31 @@ export async function getStoriesByUsername(username: string) {
     }
   })
 }
+
+
+// Get all categories 
+export async function GetAllCategories() {
+  const data = await prisma.product.groupBy({
+    by: ['category'],
+    _count: true,
+  });
+  
+  return data;
+}
+
+
+// Get featured Products 
+export async function getFeaturedProducts() {
+    const data = await prisma.product.findMany({
+      where: {isFeatured: true},
+      orderBy: {createdAt: 'desc'},
+      take: 4,
+    });
+
+    return convertToPlainObject(data);
+}
+
+
+
+
+
