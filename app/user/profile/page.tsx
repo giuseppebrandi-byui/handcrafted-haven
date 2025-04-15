@@ -27,15 +27,15 @@ const AddProductPage = async (props: {
 
     return (
         <SessionProvider session={session}>
-            <div className="max-w-md mx-auto space-y-4">
+            <div className="space-y-8 max-w-5xl mx-auto">
                 <h2 className="h2-bold">Profile</h2>
                 <ProfileForm/>
             </div>
 
             {(session!.user?.role === 'artisan' || session!.user?.role === 'admin') &&
 
-                <div className="max-w-md mx-auto space-y-4">
-                    <h2 className="h2-bold">Add New Product</h2>
+                <div className="space-y-8 max-w-5xl mx-auto">
+                    <h2 className="h2-bold mt-11">Add New Product</h2>
                     <ProductForm type="Create" />
                     <ProductList products={products} page={page} />
                 <h2 className="h2-bold">Your Stories</h2>

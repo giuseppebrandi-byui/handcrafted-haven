@@ -21,7 +21,7 @@ const SignUpForm = () => {
     const { pending } = useFormStatus();
 
     return (
-      <Button disabled={pending} className="w-full" variant="default">
+      <Button disabled={pending} className="w-full mt-6" variant="default">
         { pending ? "Submitting..." : "Sign Up" }
       </Button>
     )
