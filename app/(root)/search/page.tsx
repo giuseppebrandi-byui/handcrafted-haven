@@ -220,6 +220,4 @@ const SearchPage = async (props: {
   );
 }
 
-console.log("remove this line");
-
 export default SearchPage;
